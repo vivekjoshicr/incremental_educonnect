@@ -1,0 +1,53 @@
+<div class="form-container">
+  <h2>Create Teacher</h2>
+
+  <form [formGroup]="teacherForm" (ngSubmit)="onSubmit()">
+
+    <!-- Full Name -->
+    <div class="form-group">
+      <label>Full Name *</label>
+      <input type="text" formControlName="fullName" />
+    </div>
+
+    <!-- Contact Number -->
+    <div class="form-group">
+      <label>Contact Number *</label>
+      <input type="text" formControlName="contactNumber" />
+    </div>
+
+    <!-- Email -->
+    <div class="form-group">
+      <label>Email *</label>
+      <input type="email" formControlName="email" />
+    </div>
+
+    <!-- Subject -->
+    <div class="form-group">
+      <label>Subject *</label>
+      <input type="text" formControlName="subject" />
+    </div>
+
+    <!-- Experience -->
+    <div class="form-group">
+      <label>Years of Experience *</label>
+      <input type="number" formControlName="yearsOfExperience" />
+    </div>
+
+    <!-- Buttons -->
+    <div class="form-buttons">
+      <button type="submit">Submit</button>
+      <button type="button" (click)="resetForm()">Reset</button>
+    </div>
+
+  </form>
+
+  <!-- Success Message -->
+  <div *ngIf="successMessage" class="success-message">
+    {{ successMessage }}
+  </div>
+
+  <!-- Error Message -->
+  <div *ngIf="errorMessage" class="error-message">
+    {{ errorMessage }}
+  </div>
+</div>
