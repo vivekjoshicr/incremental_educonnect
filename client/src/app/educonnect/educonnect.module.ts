@@ -4,17 +4,6 @@ import { CommonModule } from "@angular/common";
 import { EduConnectRoutingModule } from "./educonnect-routing.module";
 import { FormsModule, ReactiveFormsModule } from "@angular/forms";
 import { HttpClientModule } from "@angular/common/http";
-<<<<<<< HEAD
-import { CourseCreateComponent } from "./components/coursecreate/coursecreate.component";
-import { StudentCreateComponent } from "./components/studentcreate/studentcreate.component";
-import { TeacherCreateComponent } from "./components/teachercreate/teachercreate.component";
-
-@NgModule({
-  declarations: [
-    StudentCreateComponent,
-    TeacherCreateComponent,
-    CourseCreateComponent],
-=======
 import { StudentCreateComponent } from "./components/studentcreate/studentcreate.component";
 import { TeacherCreateComponent } from "./components/teachercreate/teachercreate.component";
 import { CourseCreateComponent } from "./components/coursecreate/coursecreate.component";
@@ -33,12 +22,11 @@ import { CourseEditComponent } from "./components/courseedit/courseedit.componen
     TeacherCreateComponent,
     CourseCreateComponent,
     EnrollmentComponent,
-    DashboardComponent,
-    StudentEditComponent,
-    TeacherEditComponent,
-    CourseEditComponent
+    // DashboardComponent,
+    // StudentEditComponent,
+    // TeacherEditComponent,
+    // CourseEditComponent
   ],
->>>>>>> 1def2018b76ae2443f6677804c0eb6266be13dce
   imports: [
     CommonModule,
     ReactiveFormsModule,

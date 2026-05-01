@@ -1,0 +1,36 @@
+<div class="form-container">
+  <h2>Add Enrollment</h2>
+
+  <form [formGroup]="enrollmentForm" (ngSubmit)="onSubmit()">
+
+    <div class="form-group">
+      <label>Student ID *</label>
+      <input type="number" formControlName="studentId" />
+    </div>
+
+    <div class="form-group">
+      <label>Course ID *</label>
+      <input type="number" formControlName="courseId" />
+    </div>
+
+    <div class="form-group">
+      <label>Enrollment Date *</label>
+      <input type="date" formControlName="enrollmentDate" />
+    </div>
+
+    <div class="form-buttons">
+      <button type="submit">Add Enrollment</button>
+      <button type="button" (click)="resetForm()">Reset</button>
+    </div>
+
+  </form>
+
+  <div *ngIf="successMessage" class="success-message">
+    {{ successMessage }}
+  </div>
+
+
+  <div *ngIf="errorMessage" class="error-message">
+    {{ errorMessage }}
+  </div>
+</div>
