@@ -1,66 +1,39 @@
-<<<<<<< HEAD
-<div class="form-container">
+<div class="course-form-container">
   <h2>Create Course</h2>
 
   <form [formGroup]="courseForm" (ngSubmit)="onSubmit()">
-
-    <!-- Course Name -->
     <div class="form-group">
-      <label>Course Name *</label>
-      <input type="text" formControlName="courseName" />
+      <label for="courseName">Course Name</label>
+      <input id="courseName" type="text" formControlName="courseName" />
+      <div class="error" *ngIf="courseForm.get('courseName')?.touched && courseForm.get('courseName')?.errors?.['required']">
+        Course Name is required.
+      </div>
     </div>
 
-    <!-- Description -->
     <div class="form-group">
-      <label>Description</label>
-      <textarea formControlName="description" rows="4"></textarea>
+      <label for="description">Description</label>
+      <textarea id="description" rows="4" formControlName="description"></textarea>
     </div>
 
-    <!-- Teacher ID -->
     <div class="form-group">
-      <label>Teacher ID *</label>
-      <input type="number" formControlName="teacherId" />
+      <label for="teacherId">Teacher ID</label>
+      <input id="teacherId" type="number" formControlName="teacherId" />
+      <div class="error" *ngIf="courseForm.get('teacherId')?.touched && courseForm.get('teacherId')?.errors?.['required']">
+        Teacher ID is required.
+      </div>
     </div>
 
-    <!-- Buttons -->
-    <div class="form-buttons">
-      <button type="submit">Submit</button>
+    <div class="button-group">
+      <button type="submit">Create Course</button>
       <button type="button" (click)="resetForm()">Reset</button>
     </div>
-
   </form>
 
-  <!-- Success Message -->
-  <div *ngIf="successMessage" class="success-message">
+  <div class="success-message" *ngIf="successMessage">
     {{ successMessage }}
   </div>
 
-  <!-- Error Message -->
-  <div *ngIf="errorMessage" class="error-message">
+  <div class="error-message" *ngIf="errorMessage">
     {{ errorMessage }}
   </div>
 </div>
-=======
-<h2>Create Course</h2>
-<form [formGroup]="courseForm" (ngSubmit)="onSubmit()">
-    <label>Course Name</label>
-    <input formControlName="courseName" />
-    <div *ngIf="submitted && f['courseName'].errors">Course name required</div>
-    <label>Description</label>
-    <textarea formControlName="description"></textarea>
-    <div *ngIf="submitted && f['description'].errors">
-        <span *ngIf="f['description'].errors['required']">Description required</span>
-        <span *ngIf="f['description'].errors['maxlength']">Max 500 characters</span>
-    </div>
-    <label>Teacher ID</label>
-    <input formControlName="teacherId" />
-    <div *ngIf="submitted && f['teacherId'].errors">
-        <span *ngIf="f['teacherId'].errors['required']">Teacher ID required</span>
-        <span *ngIf="f['teacherId'].errors['pattern']">Must be numeric</span>
-    </div>
-    <button type="submit" (ngSubmit) = "onSubmit()">Submit</button>
-    <button type="button" (click)="resetForm()">Reset</button>
-</form>
-<div *ngIf="successMessage" class="success-message">{{ successMessage }}</div>
-<div *ngIf="errorMessage" class="error-message">{{ errorMessage }}</div>
->>>>>>> 1def2018b76ae2443f6677804c0eb6266be13dce

@@ -1,118 +1,67 @@
-<<<<<<< HEAD
-<div class="form-container">
+<div class="teacher-form-container">
   <h2>Create Teacher</h2>
 
   <form [formGroup]="teacherForm" (ngSubmit)="onSubmit()">
-
-    <!-- Full Name -->
     <div class="form-group">
-      <label>Full Name *</label>
-      <input type="text" formControlName="fullName" />
+      <label for="fullName">Full Name</label>
+      <input id="fullName" type="text" formControlName="fullName" />
+      <div class="error" *ngIf="teacherForm.get('fullName')?.touched && teacherForm.get('fullName')?.errors?.['required']">
+        Full Name is required.
+      </div>
     </div>
 
-    <!-- Contact Number -->
     <div class="form-group">
-      <label>Contact Number *</label>
-      <input type="text" formControlName="contactNumber" />
+      <label for="contactNumber">Contact Number</label>
+      <input id="contactNumber" type="text" formControlName="contactNumber" />
+      <div class="error" *ngIf="teacherForm.get('contactNumber')?.touched && teacherForm.get('contactNumber')?.errors?.['required']">
+        Contact Number is required.
+      </div>
+      <div class="error" *ngIf="teacherForm.get('contactNumber')?.touched && teacherForm.get('contactNumber')?.errors?.['pattern']">
+        Contact Number must be exactly 10 digits.
+      </div>
     </div>
 
-    <!-- Email -->
     <div class="form-group">
-      <label>Email *</label>
-      <input type="email" formControlName="email" />
+      <label for="email">Email</label>
+      <input id="email" type="email" formControlName="email" />
+      <div class="error" *ngIf="teacherForm.get('email')?.touched && teacherForm.get('email')?.errors?.['required']">
+        Email is required.
+      </div>
+      <div class="error" *ngIf="teacherForm.get('email')?.touched && teacherForm.get('email')?.errors?.['email']">
+        Enter a valid email address.
+      </div>
     </div>
 
-    <!-- Subject -->
     <div class="form-group">
-      <label>Subject *</label>
-      <input type="text" formControlName="subject" />
+      <label for="subject">Subject</label>
+      <input id="subject" type="text" formControlName="subject" />
+      <div class="error" *ngIf="teacherForm.get('subject')?.touched && teacherForm.get('subject')?.errors?.['required']">
+        Subject is required.
+      </div>
     </div>
 
-    <!-- Experience -->
     <div class="form-group">
-      <label>Years of Experience *</label>
-      <input type="number" formControlName="yearsOfExperience" />
+      <label for="yearsOfExperience">Years of Experience</label>
+      <input id="yearsOfExperience" type="number" formControlName="yearsOfExperience" />
+      <div class="error" *ngIf="teacherForm.get('yearsOfExperience')?.touched && teacherForm.get('yearsOfExperience')?.errors?.['required']">
+        Years of Experience is required.
+      </div>
+      <div class="error" *ngIf="teacherForm.get('yearsOfExperience')?.touched && teacherForm.get('yearsOfExperience')?.errors?.['min']">
+        Minimum 1 year of experience is required.
+      </div>
     </div>
 
-    <!-- Buttons -->
-    <div class="form-buttons">
-      <button type="submit">Submit</button>
-      <button type="button" (click)="resetForm()">Reset</button>
+    <div class="button-group">
+      <button type="submit" [disabled]="teacherForm.invalid">Create Teacher</button>
+      <a routerLink="/educonnect/dashboard" class="dashboard-link">Back to Dashboard</a>
     </div>
-
   </form>
 
-  <!-- Success Message -->
-  <div *ngIf="successMessage" class="success-message">
+  <div class="success-message" *ngIf="successMessage">
     {{ successMessage }}
   </div>
 
-  <!-- Error Message -->
-  <div *ngIf="errorMessage" class="error-message">
+  <div class="error-message" *ngIf="errorMessage">
     {{ errorMessage }}
   </div>
-=======
-<div class="container">
-    <h2>Create Teacher</h2>
-    <form [formGroup]="teacherForm" (ngSubmit)="onSubmit()">
-        <div>
-            <label>Full Name</label>
-            <input type="text" formControlName="fullName" />
-            <div *ngIf="submitted && f['fullName'].errors">
-                <small class="error">Full Name is required.</small>
-            </div>
-        </div>
-        <div>
-            <label>Contact Number</label>
-            <input type="text" formControlName="contactNumber" />
-            <div *ngIf="submitted && f['contactNumber'].errors">
-                <small class="error" *ngIf="f['contactNumber'].errors['required']">
-
-                    Contact Number is required.
-                </small>
-                <small class="error" *ngIf="f['contactNumber'].errors['pattern']">
-
-                    Must be 10 digits.
-                </small>
-            </div>
-        </div>
-        <div>
-            <label>Email</label>
-            <input type="email" formControlName="email" />
-            <div *ngIf="submitted && f['email'].errors">
-                <small class="error" *ngIf="f['email'].errors['required']">
-                    Email is required.
-                </small>
-                <small class="error" *ngIf="f['email'].errors['email']">
-                    Enter a valid email.
-                </small>
-            </div>
-        </div>
-        <div>
-            <label>Subject</label>
-            <input type="text" formControlName="subject" />
-            <div *ngIf="submitted && f['subject'].errors">
-                <small class="error">Subject is required.</small>
-            </div>
-        </div>
-        <div>
-            <label>Years of Experience</label>
-            <input type="number" formControlName="yearsOfExperience" />
-            <div *ngIf="submitted && f['yearsOfExperience'].errors">
-                <small class="error" *ngIf="f['yearsOfExperience'].errors['required']">
-
-                    Years of experience is required.
-                </small>
-                <small class="error" *ngIf="f['yearsOfExperience'].errors['min']">
-
-                    Minimum 1 year required.
-                </small>
-            </div>
-        </div>
-        <button type="submit">Submit</button>
-        <button type="button" (click)="resetForm()">Reset</button>
-    </form>
-    <div *ngIf="successMessage" class="success-message">{{ successMessage }}</div>
-    <div *ngIf="errorMessage" class="error">{{ errorMessage }}</div>
->>>>>>> 1def2018b76ae2443f6677804c0eb6266be13dce
 </div>

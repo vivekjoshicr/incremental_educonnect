@@ -1,4 +1,3 @@
-
 import { Component } from '@angular/core';
 import { Teacher } from '../../models/Teacher';
 
@@ -8,17 +7,38 @@ import { Teacher } from '../../models/Teacher';
   styleUrls: ['./teacherarray.component.scss']
 })
 export class TeacherArrayComponent {
-  teachers: Teacher[] = [];
-  showDetails: boolean = true;
+  teachers: Teacher[];
+  showDetails: boolean;
 
   constructor() {
-   
     this.teachers = [
-      new Teacher(1, 'Dr. Jane Smith', '9876543210', 'jane.smith@example.com', 'Mathematics', 15),
-      new Teacher(2, 'Prof. John Doe', '1234567890', 'john.doe@example.com', 'Physics', 12),
-      new Teacher(3, 'Ms. Sarah Wilson', '5555555555', 'sarah.wilson@example.com', 'Chemistry', 8),
-      new Teacher(4, 'Mr. Michael Brown', '7777777777', 'michael.brown@example.com', 'Biology', 10)
+      new Teacher(
+        1,
+        'Dr. Jane Smith',
+        '9876543210',
+        'jane@example.com',
+        'English',
+        15
+      ),
+      new Teacher(
+        2,
+        'Mr. Ravi Kumar',
+        '9123456780',
+        'ravi@example.com',
+        'Mathematics',
+        10
+      ),
+      new Teacher(
+        3,
+        'Ms. Anita Rao',
+        '9988776655',
+        'anita@example.com',
+        'Science',
+        8
+      )
     ];
+
+    this.showDetails = true;
   }
 
   toggleDetails(): void {
