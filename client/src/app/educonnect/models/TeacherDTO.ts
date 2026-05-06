@@ -3,6 +3,7 @@ export class TeacherDTO {
   username: string;
   password: string;
   fullName: string;
+  
   contactNumber: string;
   email: string;
   specialty: string;

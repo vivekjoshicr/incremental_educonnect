@@ -12,6 +12,7 @@ export class StudentDTO {
     studentId: number,
     username: string,
     password: string,
+    subject:string,
     fullName: string,
     dateOfBirth: Date,
     contactNumber: string,
@@ -22,6 +23,7 @@ export class StudentDTO {
     this.username = username;
     this.password = password;
     this.fullName = fullName;
+    
     this.dateOfBirth = dateOfBirth;
     this.contactNumber = contactNumber;
     this.email = email;
