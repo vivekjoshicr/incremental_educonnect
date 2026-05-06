@@ -1,94 +1,160 @@
 import { Component, OnInit } from '@angular/core';
-import { EduConnectService } from '../../services/educonnect.service';
-import { Teacher } from '../../models/Teacher';
+import { Router } from '@angular/router';
 import { Course } from '../../models/Course';
-import { Student } from '../../models/Student';
 import { Enrollment } from '../../models/Enrollment';
+import { Student } from '../../models/Student';
+import { EduConnectService } from '../../services/educonnect.service';
+
 
 @Component({
   selector: 'app-dashboard',
   templateUrl: './dashboard.component.html',
-  styleUrls: ['./dashboard.component.scss']
+  styleUrls: ['./dashboard.component.scss'],
 })
 export class DashboardComponent implements OnInit {
-  role: string | null = null;
-
-  // Hidden test expects these exact values after ngOnInit
-  userId: number = 1;
-  teacherId: number = 101;
-
-  teacherDetails: Teacher | null = null;
+  teacherDetails: any;
+  studentDetails: any;
   courses: Course[] = [];
+  enrollments: Enrollment[] = [];
   students: Student[] = [];
-  enrolledStudents: Student[] = [];
-  selectedCourseId: number = 0;
-  errorMessage: string | null = null;
 
-  constructor(private service: EduConnectService) {}
+  role: string | null | undefined;
+  userId: number | undefined;
+  studentId: number = 0;
+  teacherId: number = 0;
+
+  selectedCourseId: number | undefined;
+  selectedCourseEnrollment: Enrollment[] = [];
+
+  constructor(private educonnectService: EduConnectService, private router: Router) { }
 
   ngOnInit(): void {
-    if (!this.role) {
-      this.role = localStorage.getItem('role');
-    }
-
+    this.role = localStorage.getItem("role");
+    this.userId = Number(localStorage.getItem("user_id"));
+    this.teacherId = Number(localStorage.getItem("teacher_id"));
+    this.studentId = Number(localStorage.getItem("student_id"));
     if (this.role === 'TEACHER') {
-      const storedUserId =
-        localStorage.getItem('userId') || localStorage.getItem('userld');
-
-      const storedTeacherId =
-        localStorage.getItem('teacherId') || localStorage.getItem('teacherld');
-
-      this.userId = storedUserId ? +storedUserId : 1;
-      this.teacherId = storedTeacherId ? +storedTeacherId : 101;
-
+      console.log('loadTeacherData');
       this.loadTeacherData();
+    }
+    else {
+      console.log('loadStudentData');
+      this.loadStudentData();
     }
   }
 
   loadTeacherData(): void {
-    this.service.getTeacherById(this.teacherId).subscribe({
-      next: (teacher: Teacher) => {
-        this.teacherDetails = teacher;
+    this.educonnectService.getTeacherById(this.teacherId).subscribe({
+      next: (response) => {
+        this.teacherDetails = response;
       },
-      error: () => {
-        this.errorMessage = 'Failed to load teacher details.';
-      }
+      error: (error) => console.log('Error loading loggedIn teacher details', error)
     });
 
-    this.service.getCoursesByTeacherId(this.teacherId).subscribe({
-      next: (courses: Course[]) => {
-        this.courses = courses;
+    this.educonnectService.getCoursesByTeacherId(this.teacherId).subscribe({
+      next: (response) => {
+        this.courses = response;
+        if (this.courses.length > 0) {
+          this.selectedCourseId = this.courses[0].courseId;
+          this.loadEnrollments(this.selectedCourseId);
+        }
       },
-      error: () => {
-        this.errorMessage = 'Failed to load courses.';
-      }
+      error: (error) => console.log('Error loading courses', error)
     });
 
-    this.service.getAllStudents().subscribe({
-      next: (students: Student[]) => {
-        this.students = students;
+    this.educonnectService.getAllStudents().subscribe({
+      next: (response) => {
+        this.students = response;
       },
-      error: () => {
-        this.errorMessage = 'Failed to load students.';
-      }
+      error: (error) => console.log('Error loading all students.', error)
     });
   }
 
-  onCourseSelect(courseId: string): void {
-    this.selectedCourseId = courseId ? +courseId : 0;
-    this.enrolledStudents = [];
-
-    if (!this.selectedCourseId) {
-      return;
-    }
-
-    this.service.getEnrollmentsByCourse(this.selectedCourseId).subscribe({
-      next: (enrollments: Enrollment[]) => {
-        this.enrolledStudents = enrollments.map((enrollment: any) => enrollment.student);
+  loadStudentData(): void {
+    this.educonnectService.getStudentById(this.studentId).subscribe({
+      next: (response) => {
+        this.studentDetails = response;
       },
-      error: () => {
-        this.errorMessage = 'Failed to load enrolled students.';
-      }
+      error: (error) => console.log('Error loading loggedIn student details', error)
     });
+    this.educonnectService.getEnrollmentsByStudent(this.studentId).subscribe({
+      next: (response) => {
+        this.enrollments = response;
+        if (this.courses.length > 0) {
+          this.selectedCourseId = this.courses[0].courseId;
+          this.loadEnrollments(this.selectedCourseId);
+        }
+      },
+      error: (error) => console.log('Error loading enrollments for logged in student.', error)
+    });
+    this.educonnectService.getAllCourses().subscribe({
+      next: (response) => {
+        this.courses = response;
+      },
+      error: (error) => console.log('Error loading all courses.', error)
+    });
+  }
+
+
+  loadEnrollments(courseId: number): void {
+    this.educonnectService.getEnrollmentsByCourse(courseId).subscribe({
+      next: (response) => {
+        this.selectedCourseEnrollment = response;
+      },
+      error: (error) => console.log('Error loading enrollments', error),
+    });
+  }
+
+  onCourseSelect(course: Course): void {
+    this.selectedCourseId = course.courseId;
+    this.loadEnrollments(this.selectedCourseId);
+  }
+
+  navigateToEditStudent(): void {
+    this.router.navigate(['educonnect/student/edit', this.studentDetails.studentId]);
+  }
+
+  deleteStudent(): void {
+    if (confirm('Are you sure you want to delete your student profile?')) {
+      this.educonnectService.deleteStudent(this.studentId).subscribe({
+        next: () => {
+          this.router.navigate(['/']);
+        },
+        error: (error) => console.error('Error deleting student:', error)
+
+      })
+    }
+  }
+
+  navigateToEditTeacher(): void {
+    this.router.navigate(['educonnect/teacher/edit', this.teacherDetails.teacherId]);
+  }
+
+  deleteTeacher(): void {
+    if (confirm('Are you sure you want to delete your teacher profile?')) {
+      this.educonnectService.deleteTeacher(this.teacherId).subscribe({
+        next: () => {
+          this.router.navigate(['/']);
+        },
+        error: (error) => console.error('Error deleting teacher:', error)
+
+      })
+    }
+  }
+
+  navigateToEditCourse(courseId: number): void {
+    this.router.navigate(['educonnect/course/edit', courseId]);
+  }
+
+  deleteCourse(courseId: number): void {
+    if (confirm('Are you sure you want to delete your course profile?')) {
+      this.educonnectService.deleteCourse(courseId).subscribe({
+        next: () => {
+          this.router.navigate(['/']);
+        },
+        error: (error) => console.error('Error deleting course:', error)
+
+      })
+    }
   }
 }
