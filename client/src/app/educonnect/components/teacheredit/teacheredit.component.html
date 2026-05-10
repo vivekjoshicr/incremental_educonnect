@@ -12,7 +12,7 @@
           <label class="form-label">Full Name</label>
           <input type="text" class="form-control" formControlName="fullName" />
           <div class="text-danger mt-1"
-               *ngIf="teacherForm.get('fullName')?.invalid && teacherForm.get('fullName')?.touched">
+            *ngIf="teacherForm.get('fullName')?.invalid && teacherForm.get('fullName')?.touched">
             Full Name is required.
           </div>
         </div>
@@ -22,7 +22,7 @@
           <label class="form-label">Username</label>
           <input type="text" class="form-control" formControlName="username" />
           <div class="text-danger mt-1"
-               *ngIf="teacherForm.get('username')?.invalid && teacherForm.get('username')?.touched">
+            *ngIf="teacherForm.get('username')?.invalid && teacherForm.get('username')?.touched">
             <small *ngIf="teacherForm.get('username')?.hasError('required')">Username is required.</small>
             <small *ngIf="teacherForm.get('username')?.hasError('pattern')">No special characters allowed.</small>
           </div>
@@ -40,7 +40,7 @@
           </div>
 
           <div class="text-danger mt-1"
-               *ngIf="teacherForm.get('password')?.invalid && teacherForm.get('password')?.touched">
+            *ngIf="teacherForm.get('password')?.invalid && teacherForm.get('password')?.touched">
             <small *ngIf="teacherForm.get('password')?.hasError('required')">Password is required.</small>
             <small *ngIf="teacherForm.get('password')?.hasError('minlength')">Min 8 characters.</small>
             <small *ngIf="teacherForm.get('password')?.hasError('pattern')">
@@ -54,7 +54,7 @@
           <label class="form-label">Contact Number</label>
           <input type="text" class="form-control" formControlName="contactNumber" />
           <div class="text-danger mt-1"
-               *ngIf="teacherForm.get('contactNumber')?.invalid && teacherForm.get('contactNumber')?.touched">
+            *ngIf="teacherForm.get('contactNumber')?.invalid && teacherForm.get('contactNumber')?.touched">
             Must be a 10‑digit number.
           </div>
         </div>
@@ -70,7 +70,7 @@
           <label class="form-label">Subject</label>
           <input type="text" class="form-control" formControlName="subject" />
           <div class="text-danger mt-1"
-               *ngIf="teacherForm.get('subject')?.invalid && teacherForm.get('subject')?.touched">
+            *ngIf="teacherForm.get('subject')?.invalid && teacherForm.get('subject')?.touched">
             Subject is required.
           </div>
         </div>
@@ -80,7 +80,7 @@
           <label class="form-label">Years of Experience</label>
           <input type="number" class="form-control" formControlName="yearsOfExperience" />
           <div class="text-danger mt-1"
-               *ngIf="teacherForm.get('yearsOfExperience')?.invalid && teacherForm.get('yearsOfExperience')?.touched">
+            *ngIf="teacherForm.get('yearsOfExperience')?.invalid && teacherForm.get('yearsOfExperience')?.touched">
             Minimum 1 year of experience required.
           </div>
         </div>
@@ -95,18 +95,19 @@
           <a routerLink="/educonnect" class="text-decoration-none">Back to Dashboard</a>
         </div>
       </form>
+      <div *ngIf="successMessage" class="alert alert-success mt-3">
+        {{ successMessage }}
+      </div>
+
+      <!-- Error message -->
+      <div *ngIf="errorMessage" class="alert alert-danger mt-3">
+        {{ errorMessage }}
+      </div>
     </div>
   </div>
 
   <!-- Success message -->
-  <div *ngIf="successMessage" class="alert alert-success mt-3">
-    {{ successMessage }}
-  </div>
 
-  <!-- Error message -->
-  <div *ngIf="errorMessage" class="alert alert-danger mt-3">
-    {{ errorMessage }}
-  </div>
 </div>
 
 <!-- Password toggle script -->

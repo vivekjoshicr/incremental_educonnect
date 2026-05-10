@@ -2,7 +2,7 @@
 
 <div *ngIf="role === 'TEACHER'" class="container mt-4">
 
-  <h2 class="text-center mb-4 fw-bold">Teacher Dashboard</h2>
+  <h2 class="text-center mb-4 fw-bold" style="color: white;">Teacher Dashboard</h2>
 
   <!-- Teacher Details -->
   <div class="card mb-4 shadow-sm">
@@ -32,7 +32,7 @@
       </div>
 
       <table *ngIf="courses.length > 0" class="table table-bordered table-hover">
-        <thead class="table-success">
+        <thead>
           <tr>
             <th>Course Id</th>
             <th>Course Name</th>
@@ -136,7 +136,7 @@
 <!-- STUDENT DASHBOARD SECTION -->
 <div *ngIf="role === 'STUDENT'" class="container mt-4">
 
-  <h2 class="text-center mb-4 fw-bold">Student Dashboard</h2>
+  <h2 class="text-center mb-4 fw-bold" style="color: white;">Student Dashboard</h2>
 
   <div class="card mb-4 shadow-sm">
     <div class="card-header bg-primary text-white">

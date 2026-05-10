@@ -1,0 +1,158 @@
+/* ================= GLOBAL ================= */
+body {
+  background: radial-gradient(circle at top, #1a1a2e, #0f0f1a 60%);
+  font-family: 'Poppins', sans-serif;
+  color: #f1f5f9;
+}
+
+/* ✅ FIXED CONTAINER (DO NOT USE FLEX HERE) */
+.container {
+  display: block !important;
+  padding: 2rem 1rem;
+}
+
+/* ================= CENTER CARD ================= */
+.row {
+  justify-content: center;
+}
+
+.col-md-6 {
+  display: flex;
+  justify-content: center;
+}
+
+/* ================= GLASS CARD ================= */
+.card {
+  position: relative;
+  width: 100%;
+  max-width: 520px;
+  background: rgba(15, 15, 25, 0.6) !important;
+  backdrop-filter: blur(20px) !important;
+  border: 1px solid rgba(255, 255, 255, 0.08) !important;
+  border-radius: 1.25rem !important;
+  box-shadow:
+    0 0 0 1px rgba(168, 85, 247, 0.1),
+    0 20px 50px rgba(0, 0, 0, 0.55),
+    inset 0 1px 0 rgba(255, 255, 255, 0.06) !important;
+  padding: 1.5rem !important;
+  color: #f1f5f9 !important;
+  overflow: hidden;
+}
+
+/* Accent top border */
+.card::before {
+  content: '';
+  position: absolute;
+  top: 0; left: 0; right: 0;
+  height: 2px;
+  background: linear-gradient(90deg, #a855f7, #22d3ee, #a855f7);
+  background-size: 200% 100%;
+  animation: shimmer 3s linear infinite;
+}
+
+@keyframes shimmer {
+  0%   { background-position: 200% 0; }
+  100% { background-position: -200% 0; }
+}
+
+/* ================= HEADER ================= */
+.card-header {
+  background: transparent !important;
+  border: none !important;
+  text-align: center;
+}
+
+h3 {
+  font-size: 1.4rem;
+  font-weight: 700;
+  background: linear-gradient(135deg, #a855f7, #22d3ee);
+  -webkit-background-clip: text;
+  -webkit-text-fill-color: transparent;
+}
+
+/* ================= LABELS ================= */
+label {
+  font-size: 0.75rem;
+  font-weight: 500;
+  color: #94a3b8;
+  text-transform: uppercase;
+  letter-spacing: 0.06em;
+}
+
+/* ================= INPUTS ================= */
+.form-control,
+.form-select {
+  background: rgba(255, 255, 255, 0.05) !important;
+  border: 1px solid rgba(255, 255, 255, 0.1) !important;
+  border-radius: 8px !important;
+  color: #f1f5f9 !important;
+  padding: 10px 12px;
+}
+
+.form-control:focus,
+.form-select:focus {
+  border-color: #a855f7 !important;
+  box-shadow: 0 0 0 3px rgba(168, 85, 247, 0.2) !important;
+  outline: none;
+}
+
+/* dropdown options */
+.form-select option {
+  background: #12121e;
+  color: #f1f5f9;
+}
+
+/* ================= ERROR TEXT ================= */
+.text-danger {
+  color: #f43f5e !important;
+  font-size: 0.75rem;
+}
+
+/* ================= BUTTON ================= */
+.btn-success {
+  background: linear-gradient(135deg, #7c3aed, #a855f7, #22d3ee) !important;
+  border: none !important;
+  border-radius: 10px !important;
+  color: #fff !important;
+  font-weight: 600;
+  padding: 10px 20px;
+  transition: 0.3s;
+}
+
+.btn-success:hover {
+  transform: translateY(-2px);
+  box-shadow: 0 8px 18px rgba(168, 85, 247, 0.5);
+}
+
+/* ================= ALERTS ================= */
+.alert-success {
+  background: rgba(52, 211, 153, 0.1) !important;
+  border: 1px solid rgba(52, 211, 153, 0.3) !important;
+  color: #34d399 !important;
+  border-radius: 10px;
+}
+
+.alert-danger {
+  background: rgba(244, 63, 94, 0.1) !important;
+  border: 1px solid rgba(244, 63, 94, 0.3) !important;
+  color: #f43f5e !important;
+  border-radius: 10px;
+}
+
+/* ================= LINK ================= */
+a {
+  color: #a855f7 !important;
+  font-weight: 500;
+  text-decoration: none;
+}
+
+a:hover {
+  color: #22d3ee !important;
+}
+
+/* ================= RESPONSIVE ================= */
+@media (max-width: 768px) {
+  .card {
+    padding: 1.2rem !important;
+  }
+}

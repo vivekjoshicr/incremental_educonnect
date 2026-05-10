@@ -1,152 +1,282 @@
-// Center the card container
-.login-container {
-  min-height: calc(100vh - 120px);
-  display: flex;
-  align-items: center;
-  justify-content: center;
-  background-color: #f8f9fa; // light grey like Bootstrap body bg
-  padding: 24px;
+// ── Animations ─────────────────────────────────────────────
+@keyframes fadeInUp {
+  from { opacity: 0 !important; transform: translateY(36px) scale(0.96) !important; }
+  to   { opacity: 1 !important; transform: translateY(0)    scale(1)    !important; }
+}
 
-  // The "card"
-  form {
-    width: 100%;
-    max-width: 420px;
-    background: #ffffff;
-    border: 1px solid rgba(0, 0, 0, 0.1);
-    border-radius: 0.5rem;
-    box-shadow:
-      0 0.25rem 0.5rem rgba(0, 0, 0, 0.05),
-      0 0.125rem 0.25rem rgba(0, 0, 0, 0.04);
-    padding: 1.75rem 1.5rem;
+@keyframes shimmer {
+  0%   { background-position: 200% center; }
+  100% { background-position: -200% center; }
+}
+
+@keyframes borderGlow {
+  0%, 100% { box-shadow: 0 0 20px rgba(112, 64, 160, 0.5); }
+  50%       { box-shadow: 0 0 35px rgba(6, 182, 212, 0.6);  }
+}
+
+h2.text-center {
+    font-family: 'Poppins', sans-serif !important;
+    font-size: 2rem !important;
+    font-weight: 800 !important;
+    letter-spacing: -0.03em !important;
+    margin-bottom: 0.25rem !important;
+    background: linear-gradient(135deg, #06b6d4, #0d9488, #a78bfa) !important;
+    background-size: 200% auto !important;
+    -webkit-background-clip: text !important;
+    -webkit-text-fill-color: transparent !important;
+    background-clip: text !important;
+    filter: drop-shadow(0 0 16px rgba(6, 182, 212, 0.4)) !important;
+    text-align: center !important;
+
+    // Accent underline
+    &::after {
+      content: '' !important;
+      display: block !important;
+      width: 56px !important;
+      height: 3px !important;
+      border-radius: 99px !important;
+      background: linear-gradient(90deg, #06b6d4, #0d9488) !important;
+      margin: 0.65rem auto 1.75rem !important;
+    }
   }
-}
 
-/* Title like Bootstrap card-title centered */
-.login-container form::before {
-  content: "Login";
-  display: block;
-  text-align: center;
-  font-weight: 600;
-  font-size: 1.25rem;
-  margin-bottom: 1rem;
-  color: #212529;
-}
+// ── Page wrapper ───────────────────────────────────────────
+.login-container {
+  min-height: 100vh !important;
+  display: flex !important;
+  align-items: center !important;
+  justify-content: center !important;
+  padding: 2rem 1rem !important;
 
-/* Form group spacing (works with your current markup order) */
-.login-container label {
-  display: inline-block;
-  font-weight: 600;
-  font-size: 0.9rem;
-  color: #212529;
-  margin: 0.5rem 0 0.25rem;
-}
+  // ── Glass card ───────────────────────────────────────────
+  form {
+    width: 100% !important;
+    max-width: 450px !important;
+    padding: 48px !important;
+    border-radius: 24px !important;
+    background: #241d3d !important;
+    backdrop-filter: blur(30px) !important;
+    -webkit-backdrop-filter: blur(30px) !important;
+    border: 1px solid rgba(124, 58, 237, 0.4) !important;
+    box-shadow:
+      0 25px 50px rgba(124, 58, 237, 0.4),
+      0 0 100px rgba(6, 182, 212, 0.15),
+      inset 0 1px 0 rgba(124, 58, 237, 0.25) !important;
+    animation: fadeInUp 0.6s cubic-bezier(0.22, 1, 0.36, 1) both !important;
+    position: relative !important;
+    overflow: hidden !important;
 
-/* Inputs styled like .form-control */
-.login-container input[type="text"],
-.login-container input[type="password"] {
-  display: block;
-  width: 100%;
-  height: 2.5rem; /* ~40px */
-  padding: 0.375rem 0.75rem;
-  font-size: 1rem;
-  line-height: 1.5;
-  color: #212529;
-  background-color: #fff;
-  background-clip: padding-box;
-  border: 1px solid #ced4da;
-  border-radius: 0.375rem; /* .rounded */
-  transition: border-color .15s ease-in-out, box-shadow .15s ease-in-out;
-  margin-bottom: 0.5rem;
-}
-
-.login-container input[type="text"]:focus,
-.login-container input[type="password"]:focus {
-  color: #212529;
-  background-color: #fff;
-  border-color: #86b7fe;           /* Bootstrap 5 focus border */
-  outline: 0;
-  box-shadow: 0 0 0 0.25rem rgba(13, 110, 253, .25); /* focus ring */
-}
-
-/* Validation helper text (small) */
-.login-container small {
-  display: block;
-  font-size: 0.85rem;
-  color: #dc3545; /* red for errors */
-  margin-top: -0.125rem;
-  margin-bottom: 0.25rem;
-}
-
-/* Primary action button like .btn.btn-success.btn-lg.btn-block */
-.login-container button[type="submit"] {
-  display: block;
-  width: 100%;
-  border: 1px solid transparent;
-  border-radius: 0.375rem;
-  padding: 0.6rem 1rem;
-  font-size: 1rem;
-  font-weight: 600;
-  line-height: 1.5;
-  color: #fff;
-  background-color: #28a745; /* Bootstrap success */
-  border-color: #28a745;
-  cursor: pointer;
-  margin-top: 0.75rem;
-  transition: color .15s ease-in-out, background-color .15s ease-in-out,
-              border-color .15s ease-in-out, box-shadow .15s ease-in-out;
-}
-
-.login-container button[type="submit"]:hover {
-  background-color: #218838;
-  border-color: #1e7e34;
-}
-
-.login-container button[type="submit"]:focus {
-  outline: 0;
-  box-shadow: 0 0 0 0.25rem rgba(40, 167, 69, .5);
-}
-
-/* Success & error messages */
-.success-message {
-  color: #198754; /* Bootstrap success text */
-  font-size: 0.95rem;
-  margin-top: 0.75rem;
-}
-
-.error-message {
-  color: #dc3545; /* Bootstrap danger text */
-  font-size: 0.95rem;
-  margin-top: 0.75rem;
-}
-
-/* Bottom hint "Don't have an account? Sign up" */
-.login-container p {
-  margin: 0.75rem 0 0;
-  font-size: 0.95rem;
-  color: #6c757d; /* muted */
-  text-align: center;
-
-  a[routerLink] {
-    color: #0d6efd; /* Bootstrap primary link */
-    text-decoration: underline;
-    cursor: pointer;
-
-    &:hover {
-      color: #0b5ed7;
-      text-decoration: underline;
+    // Top shimmer line
+    &::before {
+      content: '' !important;
+      position: absolute !important;
+      top: 0 !important;
+      left: 0 !important;
+      right: 0 !important;
+      height: 2px !important;
+      background: linear-gradient(
+        90deg,
+        transparent,
+        #7c3aed,
+        #06b6d4,
+        #f472b6,
+        #06b6d4,
+        #7c3aed,
+        transparent
+      ) !important;
+      background-size: 200% 100% !important;
+      animation: shimmer 3s linear infinite !important;
     }
   }
 }
 
-/* Optional: compact the error-small spacing per field group */
-.login-container .ng-touched.ng-invalid + div small,
-.login-container .ng-dirty.ng-invalid + div small {
-  /* Already styled by 'small' above; keep selector to ensure specificity */
+// ── Brand heading — injected via form::before (not label) ──
+.login-container form::before {
+  content: "EduConnect" !important;
+  display: block !important;
+  text-align: center !important;
+  font-family: 'Poppins', sans-serif !important;
+  font-size: 2.1rem !important;
+  font-weight: 800 !important;
+  letter-spacing: -0.03em !important;
+  margin-bottom: 2rem !important;
+  background: linear-gradient(135deg, #c084fc, #818cf8, #06b6d4) !important;
+  background-size: 200% auto !important;
+  -webkit-background-clip: text !important;
+  -webkit-text-fill-color: transparent !important;
+  background-clip: text !important;
+  text-shadow: none !important;
+  filter: drop-shadow(0 0 20px rgba(124, 58, 237, 0.5)) !important;
 }
 
-/* Responsive tweak: reduce padding on narrow screens */
-@media (max-width: 420px) {
+// ── Labels ─────────────────────────────────────────────────
+.login-container label {
+  display: block !important;
+  font-family: 'Poppins', sans-serif !important;
+  font-size: 0.7rem !important;
+  font-weight: 600 !important;
+  color: #a78bfa !important;
+  text-transform: uppercase !important;
+  letter-spacing: 2px !important;
+  margin: 1.25rem 0 0.45rem !important;
+}
+
+// ── Inputs ─────────────────────────────────────────────────
+.login-container input[type="text"],
+.login-container input[type="password"] {
+  display: block !important;
+  width: 100% !important;
+  padding: 0.8rem 1rem !important;
+  font-family: 'Poppins', sans-serif !important;
+  font-size: 0.9rem !important;
+  font-weight: 400 !important;
+  color: #e2d9f3 !important;
+  background: rgba(15, 5, 40, 0.8) !important;
+  border: 1px solid #4c1d95 !important;
+  border-radius: 12px !important;
+  outline: none !important;
+  margin-bottom: 0.2rem !important;
+  transition: all 0.3s ease !important;
+  position: relative !important;
+
+  &::placeholder { color: #6d28d9 !important; }
+
+  &:focus {
+    border-color: #7c3aed !important;
+    background: rgba(124, 58, 237, 0.12) !important;
+    box-shadow: 0 0 20px rgba(124, 58, 237, 0.5), 0 0 8px rgba(6, 182, 212, 0.2) !important;
+    color: #e2d9f3 !important;
+  }
+}
+
+// ── Validation errors ──────────────────────────────────────
+.login-container small {
+  display: block !important;
+  font-family: 'Poppins', sans-serif !important;
+  font-size: 0.72rem !important;
+  font-weight: 500 !important;
+  color: #f472b6 !important;
+  margin-bottom: 0.15rem !important;
+  padding-left: 0.2rem !important;
+}
+
+// ── Login button — purple to cyan ──────────────────────────
+.login-container button[type="submit"] {
+  display: block !important;
+  width: 100% !important;
+  margin-top: 2rem !important;
+  padding: 0.9rem 1rem !important;
+  border: none !important;
+  border-radius: 12px !important;
+  font-family: 'Poppins', sans-serif !important;
+  font-size: 1rem !important;
+  font-weight: 700 !important;
+  color: #ffffff !important;
+  letter-spacing: 1px !important;
+  text-transform: uppercase !important;
+  cursor: pointer !important;
+  background: linear-gradient(135deg, #7c3aed, #06b6d4) !important;
+  background-size: 200% 100% !important;
+  background-position: left !important;
+  box-shadow: 0 4px 20px rgba(124, 58, 237, 0.55) !important;
+  transition: all 0.3s ease !important;
+  position: relative !important;
+  overflow: hidden !important;
+
+  // Shimmer sweep on hover
+  &::after {
+    content: '' !important;
+    position: absolute !important;
+    top: 0 !important; left: -100% !important;
+    width: 100% !important; height: 100% !important;
+    background: linear-gradient(
+      90deg,
+      transparent,
+      rgba(255,255,255,0.15),
+      transparent
+    ) !important;
+    transition: left 0.4s ease !important;
+  }
+
+  &:hover {
+    background: linear-gradient(135deg, #06b6d4, #7c3aed) !important;
+    transform: translateY(-3px) scale(1.02) !important;
+    box-shadow:
+      0 10px 35px rgba(124, 58, 237, 0.7),
+      0  0  20px rgba(6, 182, 212, 0.4) !important;
+
+    &::after { left: 100% !important; }
+  }
+
+  &:active { transform: scale(0.98) !important; }
+}
+
+// ── Status messages ────────────────────────────────────────
+.success-message {
+  margin-top: 1rem !important;
+  padding: 0.6rem 1rem !important;
+  border-radius: 10px !important;
+  font-family: 'Poppins', sans-serif !important;
+  font-size: 0.82rem !important;
+  font-weight: 500 !important;
+  text-align: center !important;
+  color: #34d399 !important;
+  background: rgba(52, 211, 153, 0.08) !important;
+  border: 1px solid rgba(52, 211, 153, 0.25) !important;
+}
+
+.error-message {
+  margin-top: 1rem !important;
+  padding: 0.6rem 1rem !important;
+  border-radius: 10px !important;
+  font-family: 'Poppins', sans-serif !important;
+  font-size: 0.82rem !important;
+  font-weight: 500 !important;
+  text-align: center !important;
+  color: #f472b6 !important;
+  background: rgba(244, 114, 182, 0.08) !important;
+  border: 1px solid rgba(244, 114, 182, 0.25) !important;
+}
+
+// ── "Don't have an account?" link ──────────────────────────
+.login-container p {
+  margin-top: 1.5rem !important;
+  font-family: 'Poppins', sans-serif !important;
+  font-size: 0.84rem !important;
+  font-weight: 400 !important;
+  color: #94a3b8 !important;
+  text-align: center !important;
+
+  a, a[routerLink] {
+    position: relative !important;
+    color: #06b6d4 !important;
+    font-weight: 600 !important;
+    text-decoration: none !important;
+    cursor: pointer !important;
+    transition: color 0.25s ease !important;
+
+    &::after {
+      content: '' !important;
+      position: absolute !important;
+      bottom: -2px !important;
+      left: 0 !important;
+      width: 0 !important;
+      height: 1.5px !important;
+      background: linear-gradient(90deg, #06b6d4, #f472b6) !important;
+      transition: width 0.35s ease !important;
+    }
+
+    &:hover {
+      color: #f472b6 !important;
+      &::after { width: 100% !important; }
+    }
+  }
+}
+
+// ── Responsive ─────────────────────────────────────────────
+@media (max-width: 480px) {
   .login-container form {
-    padding: 1.25rem 1rem;
+    padding: 24px !important;
+    border-radius: 18px !important;
   }
 }
